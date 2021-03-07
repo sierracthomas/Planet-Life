@@ -46,14 +46,53 @@ for i in range(0,4):
   def check_floor_stability():
     print("Checking floor stability. ")
 
-# Now we need functions for locations
+# All possible actions to make `main()` smaller
+# Need to make a nested loop so that each current location
+# will determine what actions can be taken there
+current_loc = "starting position"
+
+def possible_actions():
+  action = "in progress"
+  while not action.lower == "done":
+    if current_loc == "cliff":
+      action = input("Would you like to do anything here? ")
+      if action.lower() == "compass":
+        check_compass()
+      if action.lower() == "temperature":
+        check_temperature()
+      if action.lower() == "energy":
+        check_energy_source()
+      if action.lower() == "floor":
+        check_floor_stability()
+      if action.lower() == "no":
+        break
+    if current_loc == "crater":
+      action = input("Would you like to do anything here? ")
+      if action.lower() == "compass":
+        check_compass()
+      if action.lower() == "temperature":
+        print("Wow, it's exceptionally cold here. ")
+      if action.lower() == "energy":
+        check_energy_source()
+      if action.lower() == "floor":
+        print("The floor is compacted... (try this at the cliff!) ")
+      if action.lower() == "no":
+        break
+
+# Now we need functions gameplay in locations
   def cliff():
+    global current_loc
+    current_loc = "cliff"
     print("Standing at the cliff. ")
 
   def crater():
+    global current_loc
+    current_loc = "crater"
     print("Standing at the crater. ")
 
   def mountain():
+    global current_loc
+    current_loc = "mountain"
     print("Standing at the mountain. ")
 
 # Introduce player to their new setting
@@ -62,7 +101,8 @@ print("You are carrying food, a thermometer, a compass, an oxygen tank, and a go
 print("To see what you have in your toolbelt, please type `help` at any time.")
 time.sleep(.5)
 print("You'll be here for a while.")
-print("\n \nYou look around. The planet is", descriptor_dict[setting_list[0]],"To your left-hand side there is a large hill. \nTo your right-hand side there is a cliff. In front of you there is a deep crater. ")
+print("\n \nYou look around. The planet is", descriptor_dict[setting_list[0]])
+print("To your left-hand side there is a large hill. \nTo your right-hand side there is a cliff. In front of you there is a deep crater. ")
 
 # Enter while loop. Once broken, game ends.
 # will take user inputs for location. after location, can do actions. 
@@ -76,23 +116,17 @@ def main():
     user_input = input("\nWhere would you like to go? ")
     if user_input.lower() == "cliff":
       cliff()
-      action = input("Would you like to do anything here? ")
-      if action.lower() == "yes":
-        print("cool")
+      possible_actions()
     if user_input.lower() == "crater":
       crater()
+      possible_actions()
     if user_input.lower() == "mountain":
       mountain()
+      possible_actions()
     if user_input.lower() == "help":
       print("You are carrying food, a thermometer, a compass, an oxygen tank, and a good book. ")
     if user_input.lower() == "done":
       break
 
 main()
-#  else: 
-#    print("That's not an answer, silly! ")
-#    time.sleep(5)
-#    print("...")
-
-
 
