@@ -15,6 +15,16 @@ life_list = []
 for i in range(0,4):
   life_list.append(random.randint(0,2))
 
+# Determine if planet is capable of life
+life_factors = 0
+for i in life_list:
+  life_factors += i
+
+if life_factors > 5:
+  life_factors = True
+else:
+  life_factors = False
+
 ## Dictionary for descriptors of the planet
 descriptor_dict = {0: "green, with light blue clouds. ", 1: "red, with a slight breeze. ", 2: "very cold. "}
 
@@ -96,20 +106,20 @@ def possible_actions():
         break
 
 # Introduce player to their new setting
-print("Welcome to your new planet,", name,". Your ship has crash-landed and left you stranded.")
-print("You are carrying food, a thermometer, a compass, an oxygen tank, and a good book.")
-print("To see what you have in your toolbelt, please type `help` at any time.")
-time.sleep(.5)
-print("You'll be here for a while.")
-print("\n \nYou look around. The planet is", descriptor_dict[setting_list[0]])
-print("To your left-hand side there is a large hill. \nTo your right-hand side there is a cliff. In front of you there is a deep crater. ")
+
+def introduction():
+  print("Welcome to your new planet,", name,". Your ship has crash-landed and left you stranded.")
+  print("You are carrying food, a thermometer, a compass, an oxygen tank, and a good book.")
+  print("To see what you have in your toolbelt, please type `help` at any time.")
+  time.sleep(.5)
+  print("You'll be here for a while.")
+  print("\n \nYou look around. The planet is", descriptor_dict[setting_list[0]])
+  print("To your left-hand side there is a large hill. \nTo your right-hand side there is a cliff. In front of you there is a deep crater. ")
 
 # Enter while loop. Once broken, game ends.
 # will take user inputs for location. after location, can do actions. 
 # can do temp anywhere, can do compass anywhere. 
 # can only do energy on hill. can only do floor stability on cliff. 
-
-
 def main():
   user_input = "running"
   while not user_input.lower == "done":
@@ -128,18 +138,10 @@ def main():
     if user_input.lower() == "done":
       break
 
+introduction()
 main()
 
-# Determine if planet is capable of life 
-life_factors = 0
-for i in life_list:
-  life_factors += i
-
-if life_factors > 5:
-  life_factors = True
-else:
-  life_factors = False
-
+# Ask user if planet can host life
 user_input = input("\nThink this planet is capable of hosting life? ")
 if user_input.lower() == "no":
   user_condition = False
@@ -150,3 +152,4 @@ if user_condition == life_factors:
   print("\nCongrats! That is correct! ")
 else: 
   print("So sorry, try again! ")
+
