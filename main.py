@@ -30,27 +30,43 @@ descriptor_dict = {0: "green, with light blue clouds. ", 1: "red, with a slight 
 
 ## Dictionaries for actions
 # Dictionary for compass reading
-compass_dict = {0: "Your compass points north. ", 1: "Your compass does not change as you spin it. ", 2: "Your compass is broken, unfortunately. "}
+compass_dict = {0: "Your compass does not change as you spin it. ", 1: "Your compass is broken, unfortunately. ", 2: "Your compass points north. "}
 # Dictionary for energy source
 energy_dict = {0: "The sky is dark. ", 1: "There are two bright suns. ", 2: "There is a sun out in the distance. "}
 # Dictionary for temperature
 temp_dict = {0: "10c. ", 1: "300c. ", 2: "2c. "}
+
+# Make log list so that users can check observations
+log = []
+
+# Define function to print log whenever
+def print_log():
+  print("Loading observation log")
+  time.sleep(.5)
+  print("...")
+  time.sleep(.5)
+  for i in log:
+    print(i)
+  time.sleep(.5)
 
 # Now we need functions for actions
 def check_compass():
   print("Checking compass. ")
   time.sleep(.5)
   print(compass_dict[life_list[0]])
-  
+  log.append(compass_dict[life_list[0]])
+
 def check_energy_source():
   print("Checking energy source. ")
   time.sleep(.5)
   print(energy_dict[life_list[1]])
+  log.append(energy_dict[life_list[1]])
 
 def check_temperature():
   print("Checking temperature. ")
   time.sleep(.5)
   print(temp_dict[life_list[2]])
+  log.append(temp_dict[life_list[2]])
   
 # Floor stability can only be checked at cliff, so this will be inside cliff loop
 def check_floor_stability():
@@ -90,6 +106,8 @@ def possible_actions():
         check_energy_source()
       if action.lower() == "floor":
         check_floor_stability()
+      if action.lower() == "log":
+        print_log()
       if action.lower() == "no":
         break
     if current_loc == "crater":
@@ -102,6 +120,8 @@ def possible_actions():
         check_energy_source()
       if action.lower() == "floor":
         print("The floor is compacted... (try this at the cliff!) ")
+      if action.lower() == "log":
+        print_log()
       if action.lower() == "no":
         break
 
@@ -135,6 +155,8 @@ def main():
       possible_actions()
     if user_input.lower() == "help":
       print("You are carrying food, a thermometer, a compass, an oxygen tank, and a good book. ")
+    if user_input.lower() == "log":
+      print_log()
     if user_input.lower() == "done":
       break
 
