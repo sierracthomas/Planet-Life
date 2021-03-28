@@ -10,7 +10,6 @@ for i in range(0,5):
 
 # Life list info
 # Generate list that will determine life factors.
-# Slot 0 is compass,
 life_list = []
 for i in range(0,4):
   life_list.append(random.randint(0,2))
@@ -36,12 +35,11 @@ energy_dict = {0: "The sky is dark. ", 1: "There are two bright suns. ", 2: "The
 # Dictionary for temperature
 temp_dict = {0: "10c. ", 1: "300c. ", 2: "2c. "}
 
-# Make log list so that users can check observations
+## Make log list so that users can check observations
 log = []
-
 # Define function to print log whenever
 def print_log():
-  print("Loading observation log")
+  print("Loading ", name ,"'s observation log")
   time.sleep(.5)
   print("...")
   time.sleep(.5)
@@ -49,7 +47,7 @@ def print_log():
     print(i)
   time.sleep(.5)
 
-# Now we need functions for actions
+## Now we need functions for actions
 def check_compass():
   print("Checking compass. ")
   time.sleep(.5)
@@ -71,13 +69,12 @@ def check_temperature():
 # Floor stability can only be checked at cliff, so this will be inside cliff loop
 def check_floor_stability():
   print("Checking floor stability. ")
+  log.append("Floor is stable. ")
 
-# All possible actions to make `main()` smaller
-# Need to make a nested loop so that each current location
-# will determine what actions can be taken there
+
+# Now we need functions to keep track of user's location
 current_loc = "starting position"
 
-# Now we need functions gameplay in locations                                                                                               
 def cliff():
   global current_loc
   current_loc = "cliff"
@@ -93,11 +90,18 @@ def mountain():
   current_loc = "mountain"
   print("Standing at the mountain. ")
 
+def action_help():
+  print("If you would like to perform an action, type `compass`, `temperature`, `energy`, `floor`, or `log`. ")
+  print("If not, type `no`. ")
+
+# mega function that has action options for each location
 def possible_actions():
   action = "in progress"
   while not action.lower == "done":
     if current_loc == "cliff":
       action = input("Would you like to do anything here? ")
+      if action.lower() == "help":
+        action_help()
       if action.lower() == "compass":
         check_compass()
       if action.lower() == "temperature":
@@ -112,10 +116,28 @@ def possible_actions():
         break
     if current_loc == "crater":
       action = input("Would you like to do anything here? ")
+      if action.lower() == "help":
+        action_help()
       if action.lower() == "compass":
         check_compass()
       if action.lower() == "temperature":
         print("Wow, it's exceptionally cold here. ")
+      if action.lower() == "energy":
+        print("You can't locate one, but there may be an energy source. Is it blocked by the mountain? ")
+      if action.lower() == "floor":
+        print("The floor is compacted... (try this at the cliff!) ")
+      if action.lower() == "log":
+        print_log()
+      if action.lower() == "no":
+        break
+    if current_loc == "mountain":
+      action = input("Would you like to do anything here? ")
+      if action.lower() == "help":
+        action_help()
+      if action.lower() == "compass":
+        check_compass()
+      if action.lower() == "temperature":
+        check_temperature()
       if action.lower() == "energy":
         check_energy_source()
       if action.lower() == "floor":
@@ -125,22 +147,19 @@ def possible_actions():
       if action.lower() == "no":
         break
 
-# Introduce player to their new setting
-
+## Game starts - Introduce player to their new setting
 def introduction():
-  print("Welcome to your new planet,", name,". Your ship has crash-landed and left you stranded.")
+  print("\nWelcome to your new planet,", name,". Your ship has crash-landed and left you stranded.")
   print("You are carrying food, a thermometer, a compass, an oxygen tank, and a good book.")
-  print("To see what you have in your toolbelt, please type `help` at any time.")
+  print("If you are not sure what to do, please type `help` at any time.")
   time.sleep(.5)
   print("You'll be here for a while.")
   time.sleep(.5)
   print("\n \nYou look around. The planet is", descriptor_dict[setting_list[0]])
   print("To your left-hand side there is a large hill. \nTo your right-hand side there is a cliff. In front of you there is a deep crater. ")
+  time.sleep(.5)
 
-# Enter while loop. Once broken, game ends.
-# will take user inputs for location. after location, can do actions. 
-# can do temp anywhere, can do compass anywhere. 
-# can only do energy on hill. can only do floor stability on cliff. 
+# Body of game - explore planet
 def main():
   user_input = "running"
   while not user_input.lower == "done":
@@ -155,13 +174,14 @@ def main():
       mountain()
       possible_actions()
     if user_input.lower() == "help":
-      print("You are carrying food, a thermometer, a compass, an oxygen tank, and a good book. ")
+      print("If you would like to visit a location, type `mountain`, `cliff`, or `crater`. ")
+      print("To view your observation log, type `log`. If you are ready, type `done`. ")
     if user_input.lower() == "log":
       print_log()
     if user_input.lower() == "done":
       break
 
-# Ask user if planet can host life
+# End of game - ask user if planet can host life
 def life_question():
   user_input = input("\nThink this planet is capable of hosting life? ")
   if user_input.lower() == "no":
@@ -171,7 +191,7 @@ def life_question():
   if user_condition == life_factors:
     print("\nCongrats! That is correct! ")
   else: 
-    print("So sorry, try again! ")
+    print("That was not correct, try again! ")
 
 
 ## Main program starts here - continue until user wants to stop
