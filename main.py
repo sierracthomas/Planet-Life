@@ -133,6 +133,7 @@ def introduction():
   print("To see what you have in your toolbelt, please type `help` at any time.")
   time.sleep(.5)
   print("You'll be here for a while.")
+  time.sleep(.5)
   print("\n \nYou look around. The planet is", descriptor_dict[setting_list[0]])
   print("To your left-hand side there is a large hill. \nTo your right-hand side there is a cliff. In front of you there is a deep crater. ")
 
@@ -160,18 +161,25 @@ def main():
     if user_input.lower() == "done":
       break
 
-introduction()
-main()
-
 # Ask user if planet can host life
-user_input = input("\nThink this planet is capable of hosting life? ")
-if user_input.lower() == "no":
-  user_condition = False
-if user_input.lower() == "yes":
-  user_condition = True
+def life_question():
+  user_input = input("\nThink this planet is capable of hosting life? ")
+  if user_input.lower() == "no":
+    user_condition = False
+  if user_input.lower() == "yes":
+    user_condition = True
+  if user_condition == life_factors:
+    print("\nCongrats! That is correct! ")
+  else: 
+    print("So sorry, try again! ")
 
-if user_condition == life_factors:
-  print("\nCongrats! That is correct! ")
-else: 
-  print("So sorry, try again! ")
 
+## Main program starts here - continue until user wants to stop
+while True:
+  introduction()
+  main()
+  life_question()
+  time.sleep(.5)
+  if input("Would you like to play again? ").lower() != 'yes':
+    print("Thanks for playing! ")
+    break
