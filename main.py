@@ -151,6 +151,7 @@ def possible_actions():
 def introduction():
   print("\nWelcome to your new planet,", name,". Your ship has crash-landed and left you stranded.")
   print("You are carrying food, a thermometer, a compass, an oxygen tank, and a good book.")
+  print("You need to decide if this planet is capable of hosting life. ")
   print("If you are not sure what to do, please type `help` at any time.")
   time.sleep(.5)
   print("You'll be here for a while.")
