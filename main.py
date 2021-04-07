@@ -96,7 +96,7 @@ def mountain():
   print("Standing at the mountain. ")
 
 def action_help():
-  print("If you would like to perform an action, type `compass`, `temperature`, `energy`, `floor`, or `log`. ")
+  print("If you would like to perform an action, type `compass`, `temperature`, `energy`, `floor`, `pH`, or `log`. ")
   print("If not, type `no`. ")
 
 # mega function that has action options for each location
