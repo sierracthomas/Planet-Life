@@ -63,8 +63,9 @@ def check_temperature():
   print(temp_dict[life_list[2]])
   log.append(temp_dict[life_list[2]])
   
-# Floor stability can only be checked at cliff, so this will be inside cliff loop
 def check_floor_stability():
+  print("Checking the ground. ")
+  time.sleep(.5)
   print(floor_dict[life_list[3]])
   log.append(floor_dict[life_list[3]])
 
@@ -191,12 +192,19 @@ def life_question():
   else: 
     print("That was not correct, try again! ")
 
+# Check if planet is Tatooine
+def check_tatooine():
+  if life_list[1] == 1:
+    if life_list[2] == 1:
+      print("Wait a second... This planet looks just like Tatooine! \nOff in the distance, you see a sprawling village of cave homes.")
+      time.sleep(.5)
+      print("Whew! You walk towards the village - hopefully someone there can help get you back to your planet. ")
+      life_factors = 6
 
 ## Main program starts here - continue until user wants to stop
 while True:
   # Generate randomness in lists
   random_lists()
-
   # Determine if planet is capable of life
   for i in life_list:
     life_factors += i
@@ -208,6 +216,7 @@ while True:
   # Body of game 
   introduction()
   main()
+  check_tatooine()
   life_question()
   time.sleep(.5)
   if input("Would you like to play again? ").lower() != 'yes':
