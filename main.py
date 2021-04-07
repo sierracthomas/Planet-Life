@@ -5,35 +5,32 @@ import time
 # Generate list that will determine setting.
 name = str(input("What is your name? "))
 setting_list = []
-for i in range(0,5):
-  setting_list.append(random.randint(0,2))
+#for i in range(0,5):
+#  setting_list.append(random.randint(0,2))
 
 # Life list info
 # Generate list that will determine life factors.
 life_list = []
-for i in range(0,4):
-  life_list.append(random.randint(0,2))
-
-# Determine if planet is capable of life
 life_factors = 0
-for i in life_list:
-  life_factors += i
 
-if life_factors > 5:
-  life_factors = True
-else:
-  life_factors = False
+def random_lists():
+  for i in range(0,5):
+    life_list.append(random.randint(0,2))
+  for i in range(0,5):
+    setting_list.append(random.randint(0,2))      
 
 ## Dictionary for descriptors of the planet
 descriptor_dict = {0: "green, with light blue clouds. ", 1: "red, with a slight breeze. ", 2: "very cold. "}
 
 ## Dictionaries for actions
 # Dictionary for compass reading
-compass_dict = {0: "Your compass does not change as you spin it. ", 1: "Your compass is broken, unfortunately. ", 2: "Your compass points north. "}
+compass_dict = {0: "Your compass aims wherever you point it. ", 1: "Your compass is broken, unfortunately. ", 2: "Your compass points north. "}
 # Dictionary for energy source
 energy_dict = {0: "The sky is dark. ", 1: "There are two bright suns. ", 2: "There is a sun out in the distance. "}
 # Dictionary for temperature
 temp_dict = {0: "10c. ", 1: "300c. ", 2: "2c. "}
+# Dictionary for floor features
+floor_dict = {0: "The floor feels solid.", 1: "The floor feels hollow. ", 2: "There's a weird vibration when you check. Is it underground water? "}
 
 ## Make log list so that users can check observations
 log = []
@@ -68,8 +65,8 @@ def check_temperature():
   
 # Floor stability can only be checked at cliff, so this will be inside cliff loop
 def check_floor_stability():
-  print("Checking floor stability. ")
-  log.append("Floor is stable. ")
+  print(floor_dict[life_list[3]])
+  log.append(floor_dict[life_list[3]])
 
 
 # Now we need functions to keep track of user's location
@@ -157,7 +154,7 @@ def introduction():
   print("You'll be here for a while.")
   time.sleep(.5)
   print("\n \nYou look around. The planet is", descriptor_dict[setting_list[0]])
-  print("To your left-hand side there is a large hill. \nTo your right-hand side there is a cliff. In front of you there is a deep crater. ")
+  print("To your left-hand side there is a large mountain. \nTo your right-hand side there is a cliff. In front of you there is a deep crater. ")
   time.sleep(.5)
 
 # Body of game - explore planet
@@ -197,6 +194,18 @@ def life_question():
 
 ## Main program starts here - continue until user wants to stop
 while True:
+  # Generate randomness in lists
+  random_lists()
+
+  # Determine if planet is capable of life
+  for i in life_list:
+    life_factors += i
+
+  if life_factors > 5:
+    life_factors = True
+  else:
+    life_factors = False
+  # Body of game 
   introduction()
   main()
   life_question()
