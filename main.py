@@ -31,6 +31,8 @@ energy_dict = {0: "The sky is dark. ", 1: "There are two bright suns. ", 2: "The
 temp_dict = {0: "10c. ", 1: "300c. ", 2: "2c. "}
 # Dictionary for floor features
 floor_dict = {0: "The floor feels solid.", 1: "The floor feels hollow. ", 2: "There's a weird vibration when you check. Is it underground water? "}
+# Dictionary for soil pH
+ph_dict = {0: "The pH strip turns a dark green, which you know to be a pH of around 10. ", 1: "The pH strip turns orangey-pink, which you know to be a pH of around 2. ", 2: "The pH strip turns yellow-green, which you know to be a pH of 5-6. "}
 
 ## Make log list so that users can check observations
 log = []
@@ -69,6 +71,11 @@ def check_floor_stability():
   print(floor_dict[life_list[3]])
   log.append(floor_dict[life_list[3]])
 
+def check_ph_soil():
+  print("Using the pH test strip to check pH of soil. ")
+  time.sleep(.5)
+  print(ph_dict[life_list[4]])
+  log.append(ph_dict[life_list[4]])
 
 # Now we need functions to keep track of user's location
 current_loc = "starting position"
@@ -108,6 +115,8 @@ def possible_actions():
         check_energy_source()
       if action.lower() == "floor":
         check_floor_stability()
+      if action.lower() == "ph":
+        check_ph_soil()
       if action.lower() == "log":
         print_log()
       if action.lower() == "no":
@@ -124,6 +133,8 @@ def possible_actions():
         print("You can't locate one, but there may be an energy source. Is it blocked by the mountain? ")
       if action.lower() == "floor":
         print("The floor is compacted... (try this at the cliff!) ")
+      if action.lower() == "ph":
+        print("The floor is too compacted to sample. ")
       if action.lower() == "log":
         print_log()
       if action.lower() == "no":
@@ -139,7 +150,9 @@ def possible_actions():
       if action.lower() == "energy":
         check_energy_source()
       if action.lower() == "floor":
-        print("The floor is compacted... (try this at the cliff!) ")
+        check_floor_stability()
+      if action.lower() == "ph":
+        check_ph_soil()
       if action.lower() == "log":
         print_log()
       if action.lower() == "no":
