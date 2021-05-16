@@ -9,7 +9,7 @@ __Major Habitability Factors:__
  - Presence of a magnetic field
  - Presence of moderate conditions
  
-__Commands__
+__Commands:__
 | Command | Result |
 | ------ | ------ |
 | "help" | What commands can I use? |
