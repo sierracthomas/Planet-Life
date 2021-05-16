@@ -3,4 +3,29 @@
 # Planet-Life
 A fun game where the player determines if a planet is capable of hosting life. 
 
-Instructions:
+__Major Habitability Factors:__
+ - Presence/distance/habitable zone of a sun
+ - Presence/composition of atmosphere, oceans, and soil
+ - Presence of a magnetic field
+ - Presence of moderate conditions
+ 
+__Commands__
+| Command | Result |
+| ------ | ------ |
+| "help" | What commands can I use? |
+| “compass” | What would a compass show? |
+| “temperature” | What is the temperature? |
+| “energy” | Can I see a sun? |
+| “floor” | What is underneath the ground? |
+| "pH" | What is the pH level of the soil? |
+
+__Moving around:__
+
+To move to a location type in the noun of where you want to go.
+I.e., type in “mountain” if you are given “To your left-hand side there is a large mountain.”
+ - Once you are finished with a location, type “no” to leave.
+
+__Determining habitability:__
+
+To review your findings, type “log” at any point. Compare each factor with what you have found.
+ - To give your answer type “done” at any point. 
