@@ -28,4 +28,4 @@ I.e., type in “mountain” if you are given “To your left-hand side there is
 __Determining habitability:__
 
 To review your findings, type “log” at any point. Compare each factor with what you have found.
- - To give your answer type “done” at any point. 
+ - To give your answer, type “done” at any point. 
